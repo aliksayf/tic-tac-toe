@@ -9,7 +9,13 @@ const initialState = {
         null, null, null,
         null, null, null
     ]
-}
+};
+
+const emptyField = [
+    null, null, null,
+    null, null, null,
+    null, null, null
+];
 
 const reducer = (state = initialState, action) => {
 
@@ -37,7 +43,14 @@ const reducer = (state = initialState, action) => {
         case 'FINISH':
             return {
                 ...state,
-                gameActive: !state.gameActive
+                gameActive: false
+            };
+
+        case 'START':
+            return {
+                ...state,
+                field: emptyField,
+                gameActive: true
             };
 
         default:

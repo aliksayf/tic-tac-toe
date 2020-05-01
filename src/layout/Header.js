@@ -35,28 +35,30 @@ function Header(props) {
 
     const win = () => {
         if (lines.includes('XXX'))  {
-            finishGame();
+            props.finish()
             return 'Player 1 won';
         } else if ( lines.includes('OOO')) {
-            finishGame();
+            props.finish()
             return 'Player 2 won'
         } else  return whoTurn();
     }
 
-    const finishGame = () => {
-        props.finish()
-    };
+    // const finishGame = () => {
+    // };
+
+    const isGameActive = props.gameActive ? 'hidden' : '';
+
 
     return(
         <div>
             {win()}
+            <button className={isGameActive} onClick={props.start}>Start New Game</button>
         </div>
     )
 }
 
 const mapStateToProps = state => ({
-    // state: state,
-    // name: state.name,
+    gameActive: state.gameActive,
     field: state.field,
     turn: state.turn
 });
@@ -64,7 +66,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     clickX: (i) => dispatch({ type: 'CLICK_X', payload: i}),
     clickO: (i) => dispatch({ type: 'CLICK_O', payload: i}),
-    finish: () => dispatch({ type: 'FINISH', payload: null})
+    finish: () => dispatch({ type: 'FINISH', payload: null}),
+    start: () => dispatch({ type: 'START', payload: null})
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);
