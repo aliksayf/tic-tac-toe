@@ -31,46 +31,40 @@ function Header(props) {
         (field[2] + field[5] + field[8]),
         (field[0] + field[4] + field[8]),
         (field[6] + field[4] + field[2])
-    ]
+    ];
 
-    // const win = () => {
-    //     if( line1 === 'XXX' || line2 === 'XXX' || line3 === 'XXX' || line4 === 'XXX'
-    //     || line5 === 'XXX' || line6 === 'XXX' || line7 === 'XXX' || line8 === 'XXX')
-    //         {
-    //      return ' win')
-    //
-    //         // if (turn == 1){
-    //         //     console.log(`Player 2 won`)
-    //         // } else return `Player 1 won`
-    //     }
-    // };
+    const win = () => {
+        if (lines.includes('XXX'))  {
+            finishGame();
+            return 'Player 1 won';
+        } else if ( lines.includes('OOO')) {
+            finishGame();
+            return 'Player 2 won'
+        } else  return whoTurn();
+    }
 
-    // const win = () => {
-    //     let playerName;
-    //     lines.map(el => el === 'XXX' ? playerName = 'Player 1 won' : el === 'OOO' ? playerName = 'Player 2 won' : playerName = 'whoTurn')
-    //     return playerName
-    // };
-
-    const win = lines.includes('XXX') ? 'Player 1 won' : lines.includes('OOO') ? 'Player 2 won' : whoTurn();
+    const finishGame = () => {
+        props.finish()
+    };
 
     return(
         <div>
-            {/*{whoTurn()}*/}
-            {win}
+            {win()}
         </div>
     )
 }
 
 const mapStateToProps = state => ({
-    state: state,
-    name: state.name,
+    // state: state,
+    // name: state.name,
     field: state.field,
     turn: state.turn
 });
 
 const mapDispatchToProps = dispatch => ({
     clickX: (i) => dispatch({ type: 'CLICK_X', payload: i}),
-    clickO: (i) => dispatch({ type: 'CLICK_O', payload: i})
+    clickO: (i) => dispatch({ type: 'CLICK_O', payload: i}),
+    finish: () => dispatch({ type: 'FINISH', payload: null})
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

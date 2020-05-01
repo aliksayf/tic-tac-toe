@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 function Tictac(props) {
 
-    const { field, turn } = props;
+    const { field, turn, gameActive } = props;
 
     const click = (i) => {
         if (turn === 1) {
@@ -13,8 +13,10 @@ function Tictac(props) {
         }
     };
 
+    const isGameActive = !gameActive ? 'inactive' : '';
+
     return(
-        <div >
+        <div className={isGameActive}>
 
             <div className='line'>
                 <div className='cell' onClick={() => click(0)}>{field[0]}</div>
@@ -40,6 +42,7 @@ function Tictac(props) {
 
 const mapStateToProps = state => ({
     state: state,
+    gameActive: state.gameActive,
     name: state.name,
     field: state.field,
     turn: state.turn

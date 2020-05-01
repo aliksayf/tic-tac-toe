@@ -3,6 +3,7 @@ const initialState = {
     player2: 'Bim',
     name: 'John',
     turn: 1,
+    gameActive: true,
     field: [
         null, null, null,
         null, null, null,
@@ -31,6 +32,12 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 field: newField2,
                 turn: 1
+            };
+
+        case 'FINISH':
+            return {
+                ...state,
+                gameActive: !state.gameActive
             };
 
         default:
