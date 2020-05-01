@@ -43,7 +43,6 @@ function Tictac(props) {
 const mapStateToProps = state => ({
     state: state,
     gameActive: state.gameActive,
-    name: state.name,
     field: state.field,
     turn: state.turn
 });

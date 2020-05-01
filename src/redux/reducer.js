@@ -1,7 +1,7 @@
 const initialState = {
     player1: 'Jim',
     player2: 'Bim',
-    name: 'John',
+    winner: 1,
     turn: 1,
     gameActive: true,
     field: [
@@ -51,6 +51,13 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 field: emptyField,
                 gameActive: true
+            };
+
+        case 'WINNER':
+            return {
+                ...state,
+                winner: action.payload,
+                turn: action.payload
             };
 
         default:
