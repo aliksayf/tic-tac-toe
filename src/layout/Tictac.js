@@ -5,12 +5,12 @@ function Tictac(props) {
 
     const {field, turn, gameActive, winClass} = props;
     const click = (i) => {
-
-        if (turn === 1) {
-            props.clickX(i)
-        } else {
-            props.clickO(i)
-
+        if (field[i] === null) {
+            if (turn === 1) {
+                props.clickX(i)
+            } else {
+                props.clickO(i)
+            }
         }
     };
 
