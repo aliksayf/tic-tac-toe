@@ -24,3 +24,13 @@
 .hidden {
   visibility:hidden
 }
+
+.cell::before {
+  content: '';
+  text-decoration: line-through;
+}
+
+.comb {
+  background-color: green;
+  color: white;
+}

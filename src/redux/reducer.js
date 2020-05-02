@@ -4,6 +4,11 @@ const initialState = {
     winner: 1,
     turn: 1,
     gameActive: true,
+    winCombinationClass: [
+        'cell', 'cell', 'cell',
+        'cell', 'cell', 'cell',
+        'cell', 'cell', 'cell'
+    ],
     field: [
         null, null, null,
         null, null, null,
@@ -16,6 +21,14 @@ const emptyField = [
     null, null, null,
     null, null, null
 ];
+
+const emptyStyle = [
+    'cell', 'cell', 'cell',
+    'cell', 'cell', 'cell',
+    'cell', 'cell', 'cell'
+];
+
+
 
 const reducer = (state = initialState, action) => {
 
@@ -50,6 +63,7 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 field: emptyField,
+                winCombinationClass: emptyStyle,
                 gameActive: true
             };
 
@@ -58,6 +72,14 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 winner: action.payload,
                 turn: action.payload
+            };
+
+        case 'SET_STYLE':
+            const newComb = [...state.winCombinationClass]
+            action.payload.map(el => newComb[el] += ' comb')
+            return {
+                ...state,
+                winCombinationClass:  newComb
             };
 
         default:
