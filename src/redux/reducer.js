@@ -1,9 +1,10 @@
 const initialState = {
     player1: 'Jim',
     player2: 'Bim',
-    winner: 1,
+    winner: 0,
     turn: 1,
     gameActive: true,
+    statistic: [0, 0, 0],
     winCombinationClass: [
         'cell', 'cell', 'cell',
         'cell', 'cell', 'cell',
@@ -60,14 +61,19 @@ const reducer = (state = initialState, action) => {
             };
 
         case 'START':
+            const copyStat = [...state.statistic];
+                copyStat[state.winner]++;
             return {
                 ...state,
                 field: emptyField,
+                winner: 0,
+                statistic: [...copyStat],
                 winCombinationClass: emptyStyle,
                 gameActive: true
             };
 
         case 'WINNER':
+
             return {
                 ...state,
                 winner: action.payload,

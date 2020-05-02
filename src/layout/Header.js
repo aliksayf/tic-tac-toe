@@ -3,15 +3,7 @@ import { connect } from "react-redux";
 
 function Header(props) {
 
-    const { turn, field } = props;
-
-    const whoTurn = () => {
-        if(turn === 1){
-            return "Player's 1 turn"
-        } else if( turn === 2) {
-            return "Player's 2 turn"
-        }
-    };
+    const { turn, field, player1, player2, winner } = props;
 
     const lines = [
         (field[0] + field[1] + field[2]),
@@ -29,29 +21,45 @@ function Header(props) {
         const lineO = lines.indexOf('OOO')
         const cellCombination = [ [0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [6, 4, 2]];
         lineX !== -1 ? props.setWinStyle(cellCombination[lineX]) : props.setWinStyle(cellCombination[lineO])
-    }
+    };
 
-    const win = () => {
         if (lines.includes('XXX'))  {
             props.finish()
             setCombination()
             props.setWinner(1)
-            return 'Player 1 won';
         } else if ( lines.includes('OOO')) {
             props.finish()
             setCombination()
             props.setWinner(2)
-            return 'Player 2 won'
-        } else  return whoTurn();
+        }
+
+    const win = () => {
+        switch ( winner) {
+            case 1:
+                return `${player1} won`;
+            case 2:
+                return `${player2} won`;
+            case 0:
+                switch (turn) {
+                    case 1:
+                        return `turn: ${player1}`;
+                    case 2:
+                        return `turn: ${player2}`
+                }
+        }
     };
+
+    const startNewGame = () => {
+        props.start();
+    }
 
     const isGameActive = props.gameActive ? 'hidden' : '';
 
 
     return(
-        <div>
-            {win()}
-            <button className={isGameActive} onClick={props.start}>Start New Game</button>
+        <div className='m-md-auto row mt-3'>
+            <div className='d-inline col-5'>{win()}</div>
+            <button className={isGameActive + ' col-4 pr-2'} onClick={startNewGame}>New Game</button>
         </div>
     )
 };
@@ -59,6 +67,9 @@ function Header(props) {
 const mapStateToProps = state => ({
     gameActive: state.gameActive,
     field: state.field,
+    player2: state.player2,
+    player1: state.player1,
+    winner: state.winner,
     turn: state.turn
 });
 
