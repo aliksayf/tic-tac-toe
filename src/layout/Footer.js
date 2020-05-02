@@ -15,6 +15,10 @@ function Footer(props) {
                 <div>
                     {player2}: {statistic[2]}
                 </div>
+                <div>
+                    Draw: {statistic[0]}
+                </div>
+
             </div>
         </div>
     )

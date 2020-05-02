@@ -1,7 +1,7 @@
 const initialState = {
     player1: 'Jim',
     player2: 'Bim',
-    winner: 0,
+    winner: null,
     turn: 1,
     gameActive: true,
     statistic: [0, 0, 0],
@@ -66,7 +66,7 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 field: emptyField,
-                winner: 0,
+                winner: null,
                 statistic: [...copyStat],
                 winCombinationClass: emptyStyle,
                 gameActive: true
@@ -78,6 +78,13 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 winner: action.payload,
                 turn: action.payload
+            };
+
+        case 'DRAW':
+
+            return {
+                ...state,
+                winner: action.payload
             };
 
         case 'SET_STYLE':

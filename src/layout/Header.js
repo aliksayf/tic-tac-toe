@@ -31,7 +31,12 @@ function Header(props) {
         props.finish()
         setCombination()
         props.setWinner(2)
+    } else if (!field.includes(null)) {
+        props.finish()
+        props.draw(0)
     }
+
+    console.log('turn', turn)
 
     const gameInfo = () => {
         switch (winner) {
@@ -40,6 +45,8 @@ function Header(props) {
             case 2:
                 return `${player2} won!`;
             case 0:
+                return `DRAW!`;
+            case null:
                 switch (turn) {
                     case 1:
                         return `turn: ${player1}`;
@@ -76,6 +83,7 @@ const mapDispatchToProps = dispatch => ({
     finish: () => dispatch({type: 'FINISH', payload: null}),
     start: () => dispatch({type: 'START', payload: null}),
     setWinner: (num) => dispatch({type: 'WINNER', payload: num}),
+    draw: (num) => dispatch({type: 'DRAW', payload: num}),
     setWinStyle: (cells) => dispatch({type: 'SET_STYLE', payload: cells})
 });
 
