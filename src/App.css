@@ -22,7 +22,7 @@
 }
 
 .hidden {
-  visibility:hidden
+  visibility: hidden
 }
 
 .cell::before {

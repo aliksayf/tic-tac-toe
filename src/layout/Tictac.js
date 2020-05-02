@@ -1,32 +1,22 @@
 import React from "react";
-import { connect } from "react-redux";
+import {connect} from "react-redux";
 
 function Tictac(props) {
 
-    const { field, turn, gameActive, player1, player2, winClass } = props;
-    //
-    // const field2 = [
-    //     'cell', 'cell', 'cell',
-    //     'cell', 'cell', 'cell',
-    //     'cell', 'cell', 'cell'
-    // ];
-
+    const {field, turn, gameActive, winClass} = props;
     const click = (i) => {
 
         if (turn === 1) {
             props.clickX(i)
-        } else{
+        } else {
             props.clickO(i)
 
-        };
+        }
     };
-
-
-
 
     const isGameActive = !gameActive ? 'inactive' : '';
 
-    return(
+    return (
         <div className={isGameActive + ' mx-auto mt-3'}>
 
             <div className='line'>
@@ -49,12 +39,9 @@ function Tictac(props) {
 
         </div>
     )
-}
+};
 
 const mapStateToProps = state => ({
-    state: state,
-    player1: state.player1,
-    player2: state.player2,
     winClass: state.winCombinationClass,
     gameActive: state.gameActive,
     field: state.field,
@@ -62,9 +49,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    clickX: (i) => dispatch({ type: 'CLICK_X', payload: i}),
-    clickO: (i) => dispatch({ type: 'CLICK_O', payload: i}),
-    finish: () => dispatch({ type: 'FINISH', payload: null}),
+    clickX: (i) => dispatch({type: 'CLICK_X', payload: i}),
+    clickO: (i) => dispatch({type: 'CLICK_O', payload: i}),
+    finish: () => dispatch({type: 'FINISH', payload: null}),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Tictac);

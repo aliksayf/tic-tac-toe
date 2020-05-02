@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 function Header(props) {
 
-    const { turn, field, player1, player2, winner } = props;
+    const {turn, field, player1, player2, winner} = props;
 
     const lines = [
         (field[0] + field[1] + field[2]),
@@ -19,50 +19,49 @@ function Header(props) {
     const setCombination = () => {
         const lineX = lines.indexOf('XXX')
         const lineO = lines.indexOf('OOO')
-        const cellCombination = [ [0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [6, 4, 2]];
+        const cellCombination = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [6, 4, 2]];
         lineX !== -1 ? props.setWinStyle(cellCombination[lineX]) : props.setWinStyle(cellCombination[lineO])
     };
 
-        if (lines.includes('XXX'))  {
-            props.finish()
-            setCombination()
-            props.setWinner(1)
-        } else if ( lines.includes('OOO')) {
-            props.finish()
-            setCombination()
-            props.setWinner(2)
-        }
+    if (lines.includes('XXX')) {
+        props.finish()
+        setCombination()
+        props.setWinner(1)
+    } else if (lines.includes('OOO')) {
+        props.finish()
+        setCombination()
+        props.setWinner(2)
+    }
 
-    const win = () => {
-        switch ( winner) {
+    const gameInfo = () => {
+        switch (winner) {
             case 1:
-                return `${player1} won`;
+                return `${player1} won!`;
             case 2:
-                return `${player2} won`;
+                return `${player2} won!`;
             case 0:
                 switch (turn) {
                     case 1:
                         return `turn: ${player1}`;
                     case 2:
-                        return `turn: ${player2}`
+                        return `turn: ${player2}`;
+                    default:
+                        return
                 }
+            default:
+                return
         }
     };
 
-    const startNewGame = () => {
-        props.start();
-    }
-
     const isGameActive = props.gameActive ? 'hidden' : '';
 
-
-    return(
-        <div className='m-md-auto row mt-3'>
-            <div className='d-inline col-5'>{win()}</div>
-            <button className={isGameActive + ' col-4 pr-2'} onClick={startNewGame}>New Game</button>
+    return (
+        <div className='m-md-auto row mt-5 pt-4'>
+            <div className='d-inline col-5'><h5>{gameInfo()}</h5></div>
+            <button className={isGameActive + ' col-4 pr-2'} onClick={props.start}>New Game</button>
         </div>
     )
-};
+}
 
 const mapStateToProps = state => ({
     gameActive: state.gameActive,
@@ -74,10 +73,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    finish: () => dispatch({ type: 'FINISH', payload: null}),
-    start: () => dispatch({ type: 'START', payload: null}),
-    setWinner: (num) => dispatch({ type: 'WINNER', payload: num}),
-    setWinStyle: (cells) => dispatch({ type: 'SET_STYLE', payload: cells})
+    finish: () => dispatch({type: 'FINISH', payload: null}),
+    start: () => dispatch({type: 'START', payload: null}),
+    setWinner: (num) => dispatch({type: 'WINNER', payload: num}),
+    setWinStyle: (cells) => dispatch({type: 'SET_STYLE', payload: cells})
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

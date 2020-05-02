@@ -8,11 +8,13 @@ function Footer(props) {
     return(
         <div>
             <h5>SCORE:</h5>
-            <div>
-                {player1}: {statistic[1]}
-            </div>
-            <div>
-                {player2}: {statistic[2]}
+            <div className='d-inline'>
+                <div>
+                    {player1}: {statistic[1]}
+                </div>
+                <div>
+                    {player2}: {statistic[2]}
+                </div>
             </div>
         </div>
     )
